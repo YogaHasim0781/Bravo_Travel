@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate for navigation
 import '../Style/Signin.css';
 
 const Signin = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const navigate = useNavigate(); // Initialize useNavigate
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!email || !password) {
@@ -14,9 +17,22 @@ const Signin = () => {
       return;
     }
 
-    setError('');
-    alert('Sign-in successful!');
-    console.log(`Email: ${email}, Password: ${password}`);
+    try {
+      const response = await axios.post('http://localhost:5000/login', {
+        email,
+        password,
+      });
+
+      // Handle successful login
+      alert('Sign-in successful!');
+      console.log('Access Token:', response.data.accessToken);
+      setError('');
+
+      // Redirect to buyticket page
+      navigate('/buyticket'); // Ensure /buyticket route is defined in your routes
+    } catch (err) {
+      setError(err.response?.data?.msg || 'Failed to sign in');
+    }
   };
 
   return (
@@ -46,7 +62,7 @@ const Signin = () => {
           </div>
           <button type="submit" className="submit-btn">Sign In</button>
         </form>
-        <p className="hint-text">Don't have an account? <a href="#signup">Sign Up</a></p>
+        <p className="hint-text">Don't have an account? <a href="/signup">Sign Up</a></p>
       </div>
     </div>
   );

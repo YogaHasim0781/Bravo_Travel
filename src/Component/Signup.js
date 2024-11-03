@@ -1,30 +1,44 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import '../Style/Signup.css';
 
 const Signup = () => {
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Simple form validation
-    if (!email || !password || !confirmPassword) {
+    // Input validation for empty fields
+    if (!name || !email || !password || !confirmPassword) {
       setError('Please fill in all fields.');
       return;
     }
 
+    // Check if passwords match
     if (password !== confirmPassword) {
       setError('Passwords do not match.');
       return;
     }
 
-    // Handle successful form submission
-    setError('');
-    alert('Sign-up successful!');
-    console.log(`Email: ${email}, Password: ${password}`);
+    try {
+      // Send POST request to backend API
+      await axios.post('http://localhost:5000/users', {
+        name,
+        email,
+        password,
+        confirmPassword,
+      });
+
+      alert('Sign-up successful!');
+      setError('');
+    } catch (err) {
+      // Display error message from backend or default message
+      setError(err.response?.data?.msg || 'Failed to sign up');
+    }
   };
 
   return (
@@ -34,6 +48,15 @@ const Signup = () => {
         <h2 className="form-title">Create Account</h2>
         {error && <p className="error-message">{error}</p>}
         <form onSubmit={handleSubmit}>
+          <div className="input-group">
+            <input 
+              type="text" 
+              placeholder="Name" 
+              value={name} 
+              onChange={(e) => setName(e.target.value)} 
+              required 
+            />
+          </div>
           <div className="input-group">
             <input 
               type="email" 
@@ -63,7 +86,7 @@ const Signup = () => {
           </div>
           <button type="submit" className="submit-btn">Sign Up</button>
         </form>
-        <p className="hint-text">Already have an account? <a href="#signin">Sign In</a></p>
+        <p className="hint-text">Already have an account? <a href="signin">Sign In</a></p>
       </div>
     </div>
   );
