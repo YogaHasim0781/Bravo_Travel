@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "../Style/Style.css";
 
-const Navbar = () => {
-  const [menuOpen, setMenuOpen] = useState(false);
 
+const Navbar = () => {
+  const [menuOpen, setMenuOpen] = useState(false);  
   return (
     <header className="header">
       <span className="logo">Bravo Travel</span>
@@ -17,7 +17,8 @@ const Navbar = () => {
             { name: 'Home', path: '/' },
             { name: 'Sign In', path: '/signin' },
             { name: 'Sign Up', path: '/signup' },
-            { name: 'Buy Ticket?', path: '/buyticket' }
+            { name: 'Buy Ticket?', path: '/buyticket' },
+            { name: 'Order Summary', path: '/order-summary' } // New menu item added here
           ].map((item, index) => (
             <li className="navItem" key={index}>
               <Link

@@ -1,0 +1,44 @@
+
+.orderSummary {
+    padding: 20px;
+  }
+  
+  .ticket-card {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 20px; /* Increased padding for better spacing */
+    margin: 10px 0;
+    display: flex;
+    flex-direction: column; /* Makes the card layout vertical */
+    width: 100%; /* Full width of the parent */
+    max-width: 600px; /* Optional: limit the max width */
+  }
+  
+  .ticket-info {
+    display: flex;
+    justify-content: space-between; /* Aligns children to the left and right */
+    margin-bottom: 10px; /* Adds space between each line */
+  }
+  
+  .ticket-info span {
+    flex: 1; /* Allows the spans to take equal space */
+  }
+  
+  .ticket-info span:first-child {
+    font-weight: bold; /* Makes the label bold */
+  }
+  
+  .delete-button {
+    background-color: #d9534f; /* Bootstrap Danger color */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 12px;
+    cursor: pointer;
+    margin-top: 10px; /* Space above the button */
+  }
+  
+  .delete-button:hover {
+    background-color: #c9302c; /* Darker shade on hover */
+  }
+  

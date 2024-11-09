@@ -1,98 +1,109 @@
 import React, { useState } from "react";
+import axios from "axios";
 import "../Style/BuyTicket.css";
 
 const BuyTicket = () => {
-  // State to store ticket history and new ticket information
-  const [ticketHistory, setTicketHistory] = useState([]);
-  const [destination, setDestination] = useState("");
-  const [date, setDate] = useState("");
-  const [passengerCount, setPassengerCount] = useState(1);
-
-  // Function to handle ticket purchase
-  const handlePurchase = () => {
-    if (destination && date) {
+  const [nama, setNama] = useState("");
+  const [nik, setNik] = useState("");
+  const [gender, setGender] = useState("male");
+  const [tanggalPemesanan, setTanggalPemesanan] = useState("");
+  const [keberangkatan, setKeberangkatan] = useState("");
+  const [tiba, setTiba] = useState("");
+  const [error, setError] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+  const handlePurchase = async () => {
+    if (!nama || !nik || !tanggalPemesanan || !keberangkatan || !tiba) {
+      setError("Please fill in all fields.");
+      return;
+    }
+    try {
       const newTicket = {
-        id: ticketHistory.length + 1,
-        destination,
-        date,
-        passengerCount,
+        nama,
+        nik,
+        gender,
+        tanggal_pemesanan: tanggalPemesanan,
+        keberangkatan,
+        tiba,
       };
-      setTicketHistory([...ticketHistory, newTicket]);
-      setDestination("");
-      setDate("");
-      setPassengerCount(1);
-    } else {
-      alert("Please select destination and date.");
+      const response = await axios.post("http://localhost:5000/api/tickets", newTicket);
+      console.log(response.data); // Log response from server
+      setSuccessMessage("Ticket purchased successfully!");
+      // Reset form fields
+      setNama("");
+      setNik("");
+      setTanggalPemesanan("");
+      setKeberangkatan("");
+      setTiba("");
+      setError("");
+    } catch (err) {
+      console.error(err); // Log error for debugging
+      setError("Failed to purchase ticket. Please try again.");
     }
   };
 
   return (
     <div className="buyTicketPage">
       <h2>Buy Ticket</h2>
-
-      {/* Ticket Purchase Form */}
       <div className="ticketForm">
         <label>
-          Destination:
+          Nama:
           <input
             type="text"
-            value={destination}
-            onChange={(e) => setDestination(e.target.value)}
-            placeholder="Enter destination"
+            value={nama}
+            onChange={(e) => setNama(e.target.value)}
+            placeholder="Enter your name"
+          />
+        </label>
+        <label>
+          NIK:
+          <input
+            type="text"
+            value={nik}
+            onChange={(e) => setNik(e.target.value)}
+            placeholder="Enter your NIK"
           />
         </label>
 
         <label>
-          Date:
+          Gender:
+          <select value={gender} onChange={(e) => setGender(e.target.value)}>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+          </select>
+        </label>
+        <label>
+          Tanggal Pemesanan:
           <input
             type="date"
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
+            value={tanggalPemesanan}
+            onChange={(e) => setTanggalPemesanan(e.target.value)}
           />
         </label>
 
         <label>
-          Number of Passengers:
+          Keberangkatan:
           <input
-            type="number"
-            min="1"
-            value={passengerCount}
-            onChange={(e) => setPassengerCount(e.target.value)}
+            type="text"
+            value={keberangkatan}
+            onChange={(e) => setKeberangkatan(e.target.value)}
+            placeholder="Enter departure location"
           />
         </label>
-
+        <label>
+          Tiba:
+          <input
+            type="text"
+            value={tiba}
+            onChange={(e) => setTiba(e.target.value)}
+            placeholder="Enter arrival location"
+          />
+        </label>
         <button onClick={handlePurchase} className="purchaseButton">
           Buy Ticket
         </button>
-      </div>
-
-      {/* Ticket Purchase History */}
-      <div className="ticketHistory">
-        <h3>Ticket Purchase History</h3>
-        {ticketHistory.length > 0 ? (
-          <ul>
-            {ticketHistory.map((ticket) => (
-              <li key={ticket.id} className="ticketItem">
-                <strong>Destination:</strong> {ticket.destination} | 
-                <strong> Date:</strong> {ticket.date} | 
-                <strong> Passengers:</strong> {ticket.passengerCount}
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p>No tickets purchased yet.</p>
-        )}
-      </div>
-
-      {/* Additional Section: Offers or Info */}
-      <div className="ticketInfo">
-        <h3>Additional Information</h3>
-        <p>Explore exclusive travel deals and discounts on our platform!</p>
-        <ul>
-          <li>Special discounts for group bookings</li>
-          <li>Travel insurance included in ticket price</li>
-          <li>24/7 customer support for travelers</li>
-        </ul>
+        {error && <p className="error-message">{error}</p>}
+        {successMessage && <p className="success-message">{successMessage}</p>}
       </div>
     </div>
   );
