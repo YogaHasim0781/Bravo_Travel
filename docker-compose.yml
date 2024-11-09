@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  # Frontend Service
+  frontend:
+    image: pitherli/bravo_project:frontend_1.0.0
+    container_name: frontend
+    build:
+      context: ./frontend
+    ports:
+      - "3000:3000"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+
+volumes:
+  db_data: {}
