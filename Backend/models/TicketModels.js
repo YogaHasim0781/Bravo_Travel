@@ -32,7 +32,7 @@ const Ticket = db.define("ticketings", {
 // Ensure the table is created only if it doesn't exist
 (async () => {
     try {
-        await users.sync({ alter: true });
+        await Ticket.sync({ alter: true });
         console.log("Users table is synchronized and updated.");
     } catch (error) {
         console.error("Error synchronizing the Users table:", error);
