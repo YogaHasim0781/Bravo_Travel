@@ -18,4 +18,5 @@ jobs:
       run: docker build . --file Dockerfile --tag pitherli/bravotravel01:piter
     - name: Log in to Docker Hub
       run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u pitherli --password-stdin
-      docker push pitherli/bravotravel01:piter
+    - name: Push Docker Image
+      run: docker push pitherli/bravotravel01:piter
