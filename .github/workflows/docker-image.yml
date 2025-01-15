@@ -15,8 +15,8 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag pitherli/BravoTravel:piter
+      run: docker build . --file Dockerfile --tag pitherli/bravotravel:piter
     - name: Push image to DockerHub
       run: |
         docker login -u pitherli -p ${{ secrets.DOCKER_HUB_TOKEN }}
-        docker push pitherli/BravoTravel:piter
+        docker push pitherli/bravotravel:piter
