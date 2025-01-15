@@ -18,5 +18,5 @@ jobs:
       run: docker build . --file Dockerfile --tag pitherli/bravotravel01:piter
     - name: Push image to DockerHub
       run: |
-        docker login -u pitherli -p ${{ secrets.DOCKER_HUB_TOKEN }}
+        echo "${{ secrets.DOCKER_HUB_TOKEN }}" | docker login -u pitherli --password-stdin
         docker push pitherli/bravotravel01:piter
