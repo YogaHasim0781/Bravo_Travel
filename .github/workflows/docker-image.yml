@@ -16,7 +16,7 @@ jobs:
     - uses: actions/checkout@v4
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag pitherli/bravotravel01:piter
-    - name: Log in to Docker Hub
-      run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u pitherli --password-stdin
-    - name: Push Docker Image
-      run: docker push pitherli/bravotravel01:piter
+    - name: Push image to DockerHub
+      run: |
+        docker login -u pitherli -p ${{ secrets.DOCKER_HUB_TOKEN }}
+        docker push pitherli/bravotravel01:piter
