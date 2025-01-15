@@ -15,7 +15,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag pitherli/bravotravel:piter
+      run: docker build . --file Dockerfile --tag pitherli/bravotravel01:piter
     - name: Log in to Docker Hub
       run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u pitherli --password-stdin
-      docker push pitherli/bravotravel:piter
+      docker push pitherli/bravotravel01:piter
