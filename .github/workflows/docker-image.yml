@@ -4,7 +4,7 @@ on:
   push:
     branches: [ "master" ]
     paths:
-      - '.github\workflows\docker-image.yml'
+      - '.github/workflows/docker-image.yml'
 
 jobs:
 
