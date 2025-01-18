@@ -25,7 +25,7 @@ spec:
             - name: DB_PASSWORD
               value: creator
             - name: BACKEND_URL
-              value: http://backend:30001 # Points to the backend service
+              value: http://backend:30004 # Points to the backend service
 ---
 apiVersion: v1
 kind: Service
@@ -36,6 +36,6 @@ spec:
   ports:
     - port: 3000
       targetPort: 3000
-      nodePort: 30002 # Specify the NodePort manually or let it be assigned automatically
+      nodePort: 30004 # Specify the NodePort manually or let it be assigned automatically
   selector:
     app: frontend
