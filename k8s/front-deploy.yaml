@@ -25,7 +25,7 @@ spec:
             - name: DB_PASSWORD
               value: creator
             - name: BACKEND_URL
-              value: http://backend:30004 # Points to the backend service
+              value: http://backend:30005 # Points to the backend service
 ---
 apiVersion: v1
 kind: Service
