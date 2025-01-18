@@ -11,7 +11,7 @@ const Ticket = db.define("ticketings", {
         allowNull: false,
     },
     gender: {
-        type: DataTypes.ENUM('male', 'female', 'other'),
+        type: DataTypes.ENUM("male", "female", "other"),
         allowNull: false,
     },
     tanggal_pemesanan: {
@@ -28,16 +28,15 @@ const Ticket = db.define("ticketings", {
     },
 });
 
- 
-// Ensure the table is created only if it doesn't exist
+// Ensure the Ticket table is created only if it doesn't exist
 (async () => {
     try {
-        await users.sync({ alter: true });
-        console.log("Users table is synchronized and updated.");
+        // Synchronizing the Ticket table
+        await Ticket.sync({ alter: true });
+        console.log("Ticket table is synchronized and updated.");
     } catch (error) {
-        console.error("Error synchronizing the Users table:", error);
+        console.error("Error synchronizing the Ticket table:", error);
     }
 })();
-
 
 export default Ticket;
