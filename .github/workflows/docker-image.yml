@@ -1,23 +1,20 @@
 name: Build and Push Docker Images to DockerHub
-
+ 
 on:
   push:
     branches: [ "master" ]
     paths:
       - '.github/workflows/docker-image.yml'
-
+ 
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
-
+ 
     steps:
     - uses: actions/checkout@v4
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag pitherli/bravotravel01:piter
+      run: docker build ./my-app --file ./my-app/Dockerfile --tag divoniwesly/mantapbro:frontend_1.1.4
     - name: Push image to DockerHub
       run: |
-      docker login -u pitherli -p ${{ secrets.DOCKER_ACCES_TOKEN }}
-      docker push pitherli/bravotravel01:piter
-
+        docker login -u divoniwesly -p ${{ secrets.DOCKER_HUB_TOKEN }}
+        docker push divoniwesly/mantapbro:frontend_1.1.4
