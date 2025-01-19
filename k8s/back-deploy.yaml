@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: backend
-        image: divoniwesly/mantapbro:backend_1.1.6 # Ganti dengan image backend Anda
+        image: divoniwesly/mantapbro:backend_1.1.9 # Ganti dengan image backend Anda
         imagePullPolicy: Always
         ports:
         - containerPort: 5000
