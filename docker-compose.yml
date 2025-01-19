@@ -23,10 +23,10 @@ services:
  
   # Backend Service
   backend:
-    image: divoniwesly/mantapbro:backend_1.1.6
+    image: divoniwesly/mantapbro:backend_1.1.9
     build:
       context: "D:/bravo/Backend"
-    container_name: backend_1.1.6
+    container_name: backend_1.1.9
     ports:
       - "5000:5000"  # Port for backend
     environment:
